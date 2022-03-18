@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 
-export default function Form({setCards}) {
+export default function Form({setCards, checkCard}) {
 
     const [formTitle, setFormTitle] = useState('');
     const [formContent, setFormContent] = useState('');
@@ -14,15 +14,22 @@ export default function Form({setCards}) {
         setFormContent(e.target.value);
     }
     
-    const [counter, setCounter] =React.useState(0);
+    const [counter, setCounter] =React.useState(1);
 
     const handleSubmit = event => {
+        let ssss = checkCard();
+        console.log(ssss);
         event.preventDefault();
-        setCards(
-            cacapipi => [{title: formTitle, content: formContent, id : counter}, ...cacapipi]
-        );
-        setFormTitle("");
-        setFormContent("");
+        if(ssss.length >= 5){
+            alert("Nikoumouk");
+        }else{
+            setCounter(counter + 1)
+            setCards(
+                cacapipi => [{title: formTitle, content: formContent, id : counter}, ...cacapipi]
+            );
+            setFormTitle("");
+            setFormContent("");
+        }
     }
 
     return (
@@ -35,7 +42,7 @@ export default function Form({setCards}) {
             <label htmlFor="content" className="form-label">Content</label>
             <textarea type="text" className="form-control" rows="5" id="content" onChange={handleContentChange} value={formContent}/>
         </div>
-        <button type="submit" className="btn btn-primary" onClick={() => setCounter(counter + 1)}>Submit</button>
+        <button type="submit" className="btn btn-primary">Submit</button>
     </form>
 
     )
